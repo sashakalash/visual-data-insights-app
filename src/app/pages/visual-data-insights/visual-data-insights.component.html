@@ -1,1 +1,18 @@
-<p>visual-data-insights works!</p>
+<h1>{{title()}}</h1>
+<app-toolbar />
+
+<gridster [options]="options">
+  @for (item of dashboard; track item) {
+    <gridster-item [item]="item">
+      <div class="button-holder">
+        <button
+          mat-mini-fab
+          (mousedown)="removeItem($event, item)"
+          (touchstart)="removeItem($event, item)"
+        >
+        </button>
+      </div>
+      <ng-container #dynamicContainer></ng-container>
+    </gridster-item>
+  }
+</gridster>
