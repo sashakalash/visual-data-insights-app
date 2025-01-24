@@ -859,7 +859,6 @@ export class DistributionPlotComponent {
           "color": "#006ba4",
           "size": 3
       }, },
-      { x: [1, 2, 3], y: [2, 5, 3], type: 'bar' },
     ],
     layout: { width: 320, height: 240, title: 'Distribution Plot' },
   };
