@@ -9,3 +9,10 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
   padding: 10px;
 }
+
+app-root {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 100%;
+}

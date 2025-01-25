@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BoxPlotComponent } from './box-plot.component';
+import { AppPlotComponent } from './app-plot.component';
 
-describe('BoxPlotComponent', () => {
-  let component: BoxPlotComponent;
-  let fixture: ComponentFixture<BoxPlotComponent>;
+describe('AppPlotComponent', () => {
+  let component: AppPlotComponent;
+  let fixture: ComponentFixture<AppPlotComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [BoxPlotComponent]
+      imports: [AppPlotComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(BoxPlotComponent);
+    fixture = TestBed.createComponent(AppPlotComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

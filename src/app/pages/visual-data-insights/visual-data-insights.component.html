@@ -2,17 +2,9 @@
 <app-toolbar />
 
 <gridster [options]="options">
-  @for (item of dashboard; track item) {
-    <gridster-item [item]="item">
-      <div class="button-holder">
-        <button
-          mat-mini-fab
-          (mousedown)="removeItem($event, item)"
-          (touchstart)="removeItem($event, item)"
-        >
-        </button>
-      </div>
-      <ng-container #dynamicContainer></ng-container>
+  @for (graph of store.graphs(); track graph; let idx = $index) {
+    <gridster-item [item]="dashboard[idx]">
+      <app-plot [graph]="graph" />
     </gridster-item>
   }
 </gridster>

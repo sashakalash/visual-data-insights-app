@@ -1,63 +1,58 @@
-import { DisplayGrid, GridsterComponent, GridsterConfig, GridsterItem, GridsterItemComponent, GridType } from 'angular-gridster2';
-import { Component, input, ViewChild, ViewChildren, QueryList, ViewContainerRef, Type} from '@angular/core';
-import { BoxPlotComponent } from '../../shared/box-plot/box-plot.component';
-import { CorrelationHeatmapComponent } from '../../shared/correlation-heatmap/correlation-heatmap.component';
-import { DistributionPlotComponent } from '../../shared/distribution-plot/distribution-plot.component';
+import {
+  DisplayGrid,
+  GridsterComponent,
+  GridsterConfig,
+  GridsterItem,
+  GridsterItemComponent,
+  GridType,
+} from 'angular-gridster2';
+import { Component, input, inject } from '@angular/core';
 import { ToolbarComponent } from '../../shared/toolbar/toolbar.component';
+import { PlotStore } from '../../store/plot.store';
+import { AppPlotComponent } from '../../shared/app-plot/app-plot.component';
 
 @Component({
   selector: 'app-visual-data-insights',
-  imports: [
-    BoxPlotComponent,
-    CorrelationHeatmapComponent,
-    DistributionPlotComponent,
-    ToolbarComponent,
-    GridsterComponent,
-    GridsterItemComponent,
-  ],
+  imports: [AppPlotComponent, ToolbarComponent, GridsterComponent, GridsterItemComponent],
   templateUrl: './visual-data-insights.component.html',
   styleUrl: './visual-data-insights.component.scss',
+  providers: [PlotStore],
 })
 export class VisualDataInsightsComponent {
-  @ViewChildren('dynamicContainer', { read: ViewContainerRef })
-  containers!: QueryList<ViewContainerRef>;
-
   title = input<string>();
-  componentMap: { [key: string]: Type<any> } = {
-    BoxPlotComponent,
-    CorrelationHeatmapComponent,
-    DistributionPlotComponent,
-  };
-
   options!: GridsterConfig;
   dashboard!: Array<GridsterItem>;
 
+  readonly store = inject(PlotStore);
   ngOnInit() {
     this.options = {
       gridType: GridType.Fit,
       displayGrid: DisplayGrid.Always,
       pushItems: true,
       draggable: {
-        enabled: true
+        enabled: true,
       },
       resizable: {
-        enabled: true
-      }
+        enabled: true,
+      },
     };
 
     this.dashboard = [
-      { cols: 3, rows: 1, y: 0, x: 0, component: 'BoxPlotComponent' },
-      { cols: 3, rows: 1, y: 2, x: 0, component: 'DistributionPlotComponent' },
-      { cols: 4, rows: 3, y: 0, x: 3, component: 'CorrelationHeatmapComponent' },
+      { cols: 3, rows: 1, y: 0, x: 0 },
+      { cols: 3, rows: 1, y: 2, x: 0 },
+      { cols: 4, rows: 3, y: 0, x: 3 },
     ];
+
+    this.store.loadUsersPlots(this.store);
   }
 
   ngAfterViewInit() {
-    this.dashboard.forEach((item, index) => {
-      const container = this.containers.toArray()[index];
-      const componentFactory = this.componentMap[item['component']];
-      container.createComponent(componentFactory);
-    });
+    // this.dashboard.forEach((item, index) => {
+    //   const container = this.containers.toArray()[index];
+    //   const componentFactory = this.componentMap[item['component']];
+    //   const plotComponent: ComponentRef<AppPlotComponent> = container.createComponent(componentFactory);
+    //   plotComponent.instance.graph =
+    // });
   }
 
   changedOptions(): void {
