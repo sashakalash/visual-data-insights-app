@@ -1,12 +1,6 @@
 import { computed, inject } from '@angular/core';
 import { debounceTime, distinctUntilChanged, pipe, switchMap, tap } from 'rxjs';
-import {
-  patchState,
-  signalStore,
-  withComputed,
-  withMethods,
-  withState,
-} from '@ngrx/signals';
+import { patchState, signalStore, withComputed, withMethods, withState } from '@ngrx/signals';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { tapResponse } from '@ngrx/operators';
 import { PlotApiService } from '../services/plot-api.service';
@@ -24,11 +18,10 @@ const initialState: PlotState = {
   isLoading: false,
 };
 
-
-export const PlotStore = signalStore(
+export const plotStore = signalStore(
   withState(initialState),
   withComputed(({ plots }) => ({
-   graphs: computed(() => plots().map((plot: IPlotContainer) => plot.plot))
+    graphs: computed(() => plots().map((plot: IPlotContainer) => plot.plot)),
   })),
   withMethods((store, plotApiService = inject(PlotApiService)) => ({
     updatePlot(plot: Partial<IPlotContainer>): void {
