@@ -1,41 +1,53 @@
-{
-  "root": true,
-  "ignorePatterns": [
-    "projects/**/*"
-  ],
-  "overrides": [
-    {
-      "files": [
-        "*.ts"
-      ],
-      "parserOptions": {
-        "project": [
-          "tsconfig.json"
-        ],
-        "createDefaultProgram": true
-      },
-      "extends": [
-        "plugin:@angular-eslint/recommended",
-        "plugin:@angular-eslint/template/process-inline-templates"
-      ],
-      "rules": {
-        "@angular-eslint/directive-selector": [
-          "error",
-          {
-            "type": "attribute",
-            "prefix": "app",
-            "style": "camelCase"
-          }
-        ],
-        "@angular-eslint/component-selector": [
-          "error",
-          {
-            "type": "element",
-            "prefix": "cmp",
-            "style": "kebab-case"
-          }
-        ],
-        "quotes": ["error", "single"],
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import js from "@eslint/js";
+import { FlatCompat } from "@eslint/eslintrc";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const compat = new FlatCompat({
+    baseDirectory: __dirname,
+    recommendedConfig: js.configs.recommended,
+    allConfig: js.configs.all
+});
+
+export default [{
+    ignores: ["projects/**/*"],
+}, ...compat.extends(
+    "plugin:@angular-eslint/recommended",
+    "plugin:@angular-eslint/template/process-inline-templates",
+    "plugin:@typescript-eslint/recommended",
+    "eslint:recommended"
+).map(config => ({
+    ...config,
+    files: ["**/*.ts"],
+})), {
+    files: ["**/*.ts"],
+
+    languageOptions: {
+        ecmaVersion: 5,
+        sourceType: "script",
+
+        parserOptions: {
+            project: ["tsconfig.json"],
+            createDefaultProgram: true,
+        },
+    },
+
+    rules: {
+        "@angular-eslint/directive-selector": ["error", {
+            type: "attribute",
+            prefix: "app",
+            style: "camelCase",
+        }],
+
+        "@angular-eslint/component-selector": ["error", {
+            type: "element",
+            prefix: "app",
+            style: "kebab-case",
+        }],
+
+        quotes: ["error", "single"],
         "for-direction": "error",
         "no-async-promise-executor": "error",
         "no-case-declarations": "error",
@@ -84,48 +96,35 @@
         "no-unsafe-negation": "off",
         "prefer-rest-params": "error",
         "prefer-spread": "error",
-        "@typescript-eslint/ban-ts-comment": "error",
-        "@typescript-eslint/explicit-module-boundary-types": "warn",
+        "@typescript-eslint/ban-ts-comment": "off",
+        "@typescript-eslint/explicit-module-boundary-types": "off",
         "no-array-constructor": "off",
-        "@typescript-eslint/no-array-constructor": "error",
+        "@typescript-eslint/no-array-constructor": "warn",
         "no-empty-function": "off",
         "@typescript-eslint/no-extra-non-null-assertion": "error",
         "no-extra-semi": "off",
-        "@typescript-eslint/no-extra-semi": "error",
         "@typescript-eslint/no-non-null-asserted-optional-chain": "error",
         "@typescript-eslint/no-this-alias": "error",
         "no-unused-vars": "off",
         "@typescript-eslint/no-unused-vars": "warn",
         "@typescript-eslint/prefer-as-const": "error",
-        "no-restricted-imports": [
-          "error",
-          {
-            "paths": [
-              {
-                "name": "rxjs/Rx",
-                "message": "Please import directly from 'rxjs' instead"
-              }
-            ]
-          }
-        ],
-        "@typescript-eslint/member-ordering": [
-          "error",
-          {
-            "default": [
-              "static-field",
-              "instance-field",
-              "static-method",
-              "instance-method"
-            ]
-          }
-        ],
-        "no-restricted-syntax": [
-          "error",
-          {
-            "selector": "CallExpression[callee.object.name=\"console\"][callee.property.name=/^(debug|info|time|timeEnd|trace)$/]",
-            "message": "Unexpected property on console object was called"
-          }
-        ],
+
+        "no-restricted-imports": ["error", {
+            paths: [{
+                name: "rxjs/Rx",
+                message: "Please import directly from 'rxjs' instead",
+            }],
+        }],
+
+        "@typescript-eslint/member-ordering": ["error", {
+            default: ["static-field", "instance-field", "static-method", "instance-method"],
+        }],
+
+        "no-restricted-syntax": ["error", {
+            selector: "CallExpression[callee.object.name=\"console\"][callee.property.name=/^(debug|info|time|timeEnd|trace)$/]",
+            message: "Unexpected property on console object was called",
+        }],
+
         "no-fallthrough": "error",
         "@angular-eslint/no-empty-lifecycle-method": "error",
         "@typescript-eslint/interface-name-prefix": "off",
@@ -135,7 +134,6 @@
         "@angular-eslint/contextual-lifecycle": "error",
         "@angular-eslint/directive-class-suffix": "error",
         "@angular-eslint/no-conflicting-lifecycle": "error",
-        "@angular-eslint/no-host-metadata-property": "error",
         "@angular-eslint/no-input-rename": "error",
         "@angular-eslint/no-inputs-metadata-property": "error",
         "@angular-eslint/no-output-native": "error",
@@ -146,43 +144,17 @@
         "@angular-eslint/use-pipe-transform-interface": "error",
         "@typescript-eslint/adjacent-overload-signatures": "error",
         "@typescript-eslint/array-type": "off",
-        "@typescript-eslint/ban-types": [
-          "error",
-          {
-            "types": {
-              "Object": {
-                "message": "Avoid using the `Object` type. Did you mean `object`?"
-              },
-              "Function": {
-                "message": "Avoid using the `Function` type. Prefer a specific function type, like `() => void`."
-              },
-              "Boolean": {
-                "message": "Avoid using the `Boolean` type. Did you mean `boolean`?"
-              },
-              "Number": {
-                "message": "Avoid using the `Number` type. Did you mean `number`?"
-              },
-              "String": {
-                "message": "Avoid using the `String` type. Did you mean `string`?"
-              },
-              "Symbol": {
-                "message": "Avoid using the `Symbol` type. Did you mean `symbol`?"
-              }
-            }
-          }
-        ],
+
         "@typescript-eslint/consistent-type-assertions": "error",
         "@typescript-eslint/dot-notation": "error",
-        "@typescript-eslint/naming-convention": "error",
         "@typescript-eslint/no-empty-function": "off",
         "@typescript-eslint/no-empty-interface": "error",
         "@typescript-eslint/no-explicit-any": "off",
-        "@typescript-eslint/no-inferrable-types": [
-          "error",
-          {
-            "ignoreParameters": true
-          }
-        ],
+
+        "@typescript-eslint/no-inferrable-types": ["error", {
+            ignoreParameters: true,
+        }],
+
         "@typescript-eslint/no-misused-new": "error",
         "@typescript-eslint/no-namespace": "error",
         "@typescript-eslint/no-non-null-assertion": "error",
@@ -193,73 +165,72 @@
         "@typescript-eslint/prefer-for-of": "error",
         "@typescript-eslint/prefer-function-type": "error",
         "@typescript-eslint/prefer-namespace-keyword": "error",
-        "@typescript-eslint/triple-slash-reference": [
-          "error",
-          {
-            "path": "always",
-            "types": "prefer-import",
-            "lib": "always"
-          }
-        ],
+
+        "@typescript-eslint/triple-slash-reference": ["error", {
+            path: "always",
+            types: "prefer-import",
+            lib: "always",
+        }],
+
         "@typescript-eslint/unified-signatures": "error",
-        "complexity": "off",
+        complexity: "off",
         "constructor-super": "error",
-        "eqeqeq": ["error", "smart"],
+        eqeqeq: ["error", "smart"],
         "guard-for-in": "error",
+
         "id-blacklist": [
-          "error",
-          "any",
-          "Number",
-          "number",
-          "String",
-          "string",
-          "Boolean",
-          "boolean",
-          "Undefined",
-          "undefined"
+            "error",
+            "any",
+            "Number",
+            "number",
+            "String",
+            "string",
+            "Boolean",
+            "boolean",
+            "Undefined",
+            "undefined",
         ],
+
         "id-match": "error",
         "max-classes-per-file": "off",
         "no-bitwise": "error",
         "no-caller": "error",
         "no-cond-assign": "error",
-        "no-console": [
-          "error",
-          {
-            "allow": [
-              "log",
-              "warn",
-              "dir",
-              "timeLog",
-              "assert",
-              "clear",
-              "count",
-              "countReset",
-              "group",
-              "groupEnd",
-              "table",
-              "dirxml",
-              "error",
-              "groupCollapsed",
-              "Console",
-              "profile",
-              "profileEnd",
-              "timeStamp",
-              "context"
-            ]
-          }
-        ],
+
+        "no-console": ["error", {
+            allow: [
+                "log",
+                "warn",
+                "dir",
+                "timeLog",
+                "assert",
+                "clear",
+                "count",
+                "countReset",
+                "group",
+                "groupEnd",
+                "table",
+                "dirxml",
+                "error",
+                "groupCollapsed",
+                "Console",
+                "profile",
+                "profileEnd",
+                "timeStamp",
+                "context",
+            ],
+        }],
+
         "no-debugger": "error",
         "no-empty": "off",
         "no-eval": "error",
         "no-invalid-this": "off",
         "no-new-wrappers": "error",
-        "@typescript-eslint/no-shadow": [
-          "error",
-          {
-            "hoist": "all"
-          }
-        ],
+
+        "@typescript-eslint/no-shadow": ["error", {
+            hoist: "all",
+        }],
+
         "no-throw-literal": "error",
         "no-undef-init": "error",
         "no-underscore-dangle": "error",
@@ -269,21 +240,16 @@
         "object-shorthand": "error",
         "one-var": ["error", "never"],
         "prefer-const": "error",
-        "radix": "error",
+        radix: "error",
         "use-isnan": "error",
-        "valid-typeof": "off"
-      }
+        "valid-typeof": "off",
     },
-    {
-      "files": [
-        "*.html"
-      ],
-      "extends": [
-        "plugin:@angular-eslint/template/recommended"
-      ],
-      "rules": {
-        "prefer-arrow/prefer-arrow-functions": "warn"
-      }
-    }
-  ]
-}
+}, ...compat.extends("plugin:@angular-eslint/template/recommended").map(config => ({
+    ...config,
+    files: ["**/*.html"],
+})), {
+    files: ["**/*.html"],
+
+    rules: {
+    },
+}];

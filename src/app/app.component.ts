@@ -4,16 +4,8 @@ import { MenuComponent } from './shared/menu/menu.component';
 
 @Component({
   selector: 'app-root',
-  imports: [
-    MenuComponent,
-    VisualDataInsightsComponent,
-  ],
+  imports: [MenuComponent, VisualDataInsightsComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
-export class AppComponent {
-  title = 'visual-data-insights-app';
-  BoxPlotComponent: any;
-  CorrelationHeatmapComponent: any;
-  DistributionPlotComponent: any;
-}
+export class AppComponent {}

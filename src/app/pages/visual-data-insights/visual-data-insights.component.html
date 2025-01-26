@@ -1,7 +1,7 @@
 <h1>{{title()}}</h1>
 <app-toolbar />
 
-<gridster [options]="options">
+<gridster [options]="options" #gridster>
   @for (graph of store.graphs(); track graph; let idx = $index) {
     <gridster-item [item]="dashboard[idx]">
       <app-plot [graph]="graph" />

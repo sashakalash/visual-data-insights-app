@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { map, Observable, tap } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { environment } from '../environments/environment';
 import { IPlotContainer } from '../interfaces/plot.intrerface';
-import { IPlotApiData } from '../interfaces/plot-api-data.interface';
 
 const mockedPlot: Partial<IPlotContainer> = {
   plot_name: 'Outlier',
@@ -20,8 +19,10 @@ const mockedPlot: Partial<IPlotContainer> = {
     },
   ],
 };
-
 const mockedPlotId = 99;
+// const mockedPlots = [
+
+// ];
 
 @Injectable({
   providedIn: 'root',
@@ -29,12 +30,12 @@ const mockedPlotId = 99;
 export class PlotApiService {
   private apiUrl = environment.apiUrl;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getUserPlots(): Observable<IPlotContainer[]> {
-    return this.http.get<any>(`${this.apiUrl}?project_id=29&show_fig=True&cursor=0&limit=4`).pipe(
-      map(({ data }) => data.plots)
-    );
+    return this.http
+      .get<any>(`${this.apiUrl}?project_id=29&show_fig=True&cursor=0&limit=4`)
+      .pipe(map(({ data }) => (data?.plots?.length ? data.plots : mockedPlots)));
   }
 
   createPlot(body: Partial<IPlotContainer> = mockedPlot): Observable<any> {
@@ -47,7 +48,7 @@ export class PlotApiService {
 
   //TO DO add returned type
   patchPlot(body: any, id: number = mockedPlotId): Observable<any> {
-    return this.http.patch<any>(`${this.apiUrl}/${String(mockedPlotId)}/`, body, {
+    return this.http.patch<any>(`${this.apiUrl}/${String(id)}/`, body, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
       }),
@@ -56,6 +57,6 @@ export class PlotApiService {
 
   //TO DO add returned type
   deletePlot(id: number = mockedPlotId): Observable<any> {
-    return this.http.delete<any>(`${this.apiUrl}/${String(mockedPlotId)}/`);
+    return this.http.delete<any>(`${this.apiUrl}/${String(id)}/`);
   }
 }
