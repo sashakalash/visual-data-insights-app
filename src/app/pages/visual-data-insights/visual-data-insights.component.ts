@@ -11,7 +11,6 @@ import { ToolbarComponent } from '../../shared/toolbar/toolbar.component';
 import { AppPlotComponent } from '../../shared/app-plot/app-plot.component';
 import { plotStore } from '../../store/plot.store';
 import { MatIcon } from '@angular/material/icon';
-import { IPlot, IPlotContainer } from '../../interfaces/plot.intrerface';
 
 @Component({
   selector: 'app-visual-data-insights',

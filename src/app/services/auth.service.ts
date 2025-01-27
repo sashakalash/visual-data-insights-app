@@ -12,6 +12,7 @@ export class AuthService {
   getToken(): string | null {
     // TO DO get token from BE
     return TOKEN;
+    return TOKEN;
   }
 
   isAuthenticated(): boolean {
