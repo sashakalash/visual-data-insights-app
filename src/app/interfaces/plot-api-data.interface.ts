@@ -1,5 +1,5 @@
-import { IPaginationData } from "./api-pagination-data.interface";
-import { IPlotContainer } from "./plot.intrerface"
+import { IPaginationData } from './api-pagination-data.interface';
+import { IPlotContainer } from './plot.intrerface';
 
 export interface IPlotApiData {
   plots: IPlotContainer[];

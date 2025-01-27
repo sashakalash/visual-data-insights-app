@@ -5,6 +5,7 @@ import { environment } from '../environments/environment';
 import { IPlotContainer } from '../interfaces/plot.intrerface';
 
 export const mockedPlot: Partial<IPlotContainer> = {
+  plot_id: 1,
   plot_name: 'Outlier',
   selected_options: [
     {

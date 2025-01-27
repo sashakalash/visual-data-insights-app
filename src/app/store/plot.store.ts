@@ -1,5 +1,5 @@
 import { inject } from '@angular/core';
-import { of, pipe, switchMap, tap, withLatestFrom } from 'rxjs';
+import { pipe, switchMap, tap } from 'rxjs';
 import { patchState, signalStore, withMethods, withState } from '@ngrx/signals';
 import { withDevtools } from '@angular-architects/ngrx-toolkit';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
@@ -47,10 +47,8 @@ export const plotStore = signalStore(
     createPlot: rxMethod<void>(
       pipe(
         tap(() => patchState(store, { isLoading: true })),
-        withLatestFrom(of(store.currentPlot())),
-        switchMap(([_action, currentPlot]) => {
-          console.log(currentPlot);
-          return plotApiService.createPlot(currentPlot).pipe(
+        switchMap(() => {
+          return plotApiService.createPlot(store.currentPlot()).pipe(
             tapResponse({
               next: (plots) => patchState(store, { plots }),
               error: console.error,
@@ -63,9 +61,8 @@ export const plotStore = signalStore(
     editPlot: rxMethod<void>(
       pipe(
         tap(() => patchState(store, { isLoading: true })),
-        withLatestFrom(store.currentPlot),
-        switchMap((currentPlot) => {
-          return plotApiService.patchPlot(currentPlot).pipe(
+        switchMap(() => {
+          return plotApiService.patchPlot(store.currentPlot()).pipe(
             tapResponse({
               next: (plots) => patchState(store, { plots }),
               error: console.error,
