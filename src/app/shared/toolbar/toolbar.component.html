@@ -14,12 +14,14 @@
 </mat-form-field>
 
 <div class="buttons-wrapper">
-  <button mat-raised-button>
-    Action_1
-    <mat-icon></mat-icon>
+  <button mat-raised-button
+          (click)="createPlot()">
+    Create plot
+    <mat-icon>add_circle</mat-icon>
   </button>
-  <button mat-flat-button>
-    Action_2
-    <mat-icon></mat-icon>
+  <button mat-flat-button
+          (click)="editPlot()">
+    Edit plot
+    <mat-icon>edit</mat-icon>
   </button>
 </div>

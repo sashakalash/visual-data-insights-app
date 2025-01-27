@@ -15,6 +15,13 @@ export const appConfig = {
     provideAnimationsAsync(),
     provideStore(),
     provideHttpClient(withInterceptors([AuthInterceptor])),
-    provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
+    provideStoreDevtools({
+      maxAge: 25,
+      logOnly: !isDevMode(),
+      autoPause: true,
+      trace: false,
+      traceLimit: 75,
+      connectInZone: true,
+    }),
   ],
 };

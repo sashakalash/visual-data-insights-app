@@ -25,7 +25,7 @@ export interface IDisplayLayout extends ICoords {
 }
 
 export interface IPlotDataMarker {
-  color: number[];
+  color: string;
   coloraxis: string;
   size: number[];
   sizemode: string;
@@ -37,14 +37,14 @@ export interface IPlotData {
   customdata: Array<number[]>;
   hovertemplate: string;
   legendgroup: string;
-  marker: IPlotDataMarker;
+  marker?: Partial<IPlotDataMarker>;
   mode: string;
   name: string;
   orientation: string;
   showlegend: boolean;
-  x: number[];
+  x: Array<string | number>;
   xaxis: string;
-  y: number[];
+  y: Array<string | number>;
   yaxis: string;
   type: string;
 }
@@ -85,14 +85,14 @@ export interface IPlotLayoutTemplateDataParcoords {
   type: string;
   line: {
     colorbar: IPlotLayoutTemplateDataColorbar;
-  }
+  };
 }
 
 export interface IPlotLayoutTemplateDataScatter {
   type: string;
   marker: {
     colorbar: IPlotLayoutTemplateDataColorbar;
-  }
+  };
 }
 
 export interface IPlotLayoutTemplateDataBarMarkerLine {
@@ -134,13 +134,13 @@ export interface IPlotLayoutTemplateDataScatter {
   type: string;
   marker: {
     colorbar: IPlotLayoutTemplateDataColorbar;
-  }
+  };
 }
 
 export interface IPlotLayoutTemplateDataScatter3D extends IPlotLayoutTemplateDataScatter {
   line: {
     colorbar: IPlotLayoutTemplateDataColorbar;
-  }
+  };
 }
 
 export interface IPlotLayoutTemplateDataCarpetAxis {
@@ -160,10 +160,10 @@ export interface IPlotLayoutTemplateDataCarpet {
 export interface IPlotLayoutTemplateDataTableEntity {
   fill: {
     color: string;
-  }
+  };
   line: {
     color: string;
-  }
+  };
 }
 
 export interface IPlotLayoutTemplateDataTable {
@@ -292,7 +292,7 @@ export interface IPlotLayoutTemplateLayout {
   colorway: string[];
   font: {
     color: string;
-  }
+  };
   hovermode: string;
   hoverlabel: {
     align: string;
@@ -311,7 +311,7 @@ export interface IPlotLayoutTemplateLayout {
   shapedefaults: {
     line: {
       color: string;
-    }
+    };
   };
   annotationdefaults: IPlotLayoutTemplateLayoutAnnotation;
   geo: IPlotLayoutTemplateLayoutGeo;
@@ -320,7 +320,7 @@ export interface IPlotLayoutTemplateLayout {
   };
   mapbox: {
     style: string;
-  }
+  };
 }
 
 export interface IPlotLayoutTemplate {
@@ -330,7 +330,7 @@ export interface IPlotLayoutTemplate {
 
 export interface IPlotLayoutColoraxis {
   colorbar: {
-    title: ITitle
+    title: ITitle;
   };
   colorscale: Array<[number, string]>;
 }
@@ -354,7 +354,7 @@ export interface IPlotLayout {
 
 export interface IPlot {
   data: IPlotData[];
-  layout: IPlotLayout;
+  layout: any;
 }
 
 export interface IPlotContainer {

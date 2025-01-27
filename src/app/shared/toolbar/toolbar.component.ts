@@ -1,10 +1,12 @@
-import { Component, model } from '@angular/core';
+import { Component, inject, model } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { plotStore } from '../../store/plot.store';
+import { mockedPlot } from '../../services/plot-api.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -15,7 +17,19 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 export class ToolbarComponent {
   value = model('');
 
-  resetValue() {
+  readonly store = inject(plotStore);
+
+  resetValue(): void {
     this.value.set('');
+  }
+
+  createPlot(): void {
+    this.store.updateCurrentPlot(mockedPlot);
+    this.store.createPlot();
+  }
+
+  editPlot(): void {
+    this.store.updateCurrentPlot(mockedPlot);
+    this.store.editPlot();
   }
 }

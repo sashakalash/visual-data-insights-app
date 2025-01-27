@@ -105,8 +105,8 @@ export default [{
         "no-extra-semi": "off",
         "@typescript-eslint/no-non-null-asserted-optional-chain": "error",
         "@typescript-eslint/no-this-alias": "error",
-        "no-unused-vars": "off",
-        "@typescript-eslint/no-unused-vars": "warn",
+        "no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }],
+        "@typescript-eslint/no-unused-vars": [1, { vars: 'all', 'argsIgnorePattern': '^_' }],
         "@typescript-eslint/prefer-as-const": "error",
 
         "no-restricted-imports": ["error", {

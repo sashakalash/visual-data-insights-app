@@ -10,10 +10,12 @@ import { Component, input, inject, OnInit } from '@angular/core';
 import { ToolbarComponent } from '../../shared/toolbar/toolbar.component';
 import { AppPlotComponent } from '../../shared/app-plot/app-plot.component';
 import { plotStore } from '../../store/plot.store';
+import { MatIcon } from '@angular/material/icon';
+import { IPlot, IPlotContainer } from '../../interfaces/plot.intrerface';
 
 @Component({
   selector: 'app-visual-data-insights',
-  imports: [AppPlotComponent, ToolbarComponent, GridsterComponent, GridsterItemComponent],
+  imports: [AppPlotComponent, ToolbarComponent, GridsterComponent, GridsterItemComponent, MatIcon],
   templateUrl: './visual-data-insights.component.html',
   styleUrl: './visual-data-insights.component.scss',
   providers: [plotStore],
