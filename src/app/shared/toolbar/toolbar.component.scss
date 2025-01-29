@@ -1,0 +1,14 @@
+:host {
+  height: auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+button {
+  margin: 10px;
+}
+
+.mat-mdc-form-field {
+  display: flex;
+  flex: 1;
+}

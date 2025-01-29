@@ -1,0 +1,16 @@
+h1 {
+  width: 200px;
+  word-wrap: break-word;
+  text-transform: capitalize;
+  font-size: 20pt;
+}
+
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+gridster {
+  flex: 1;
+}

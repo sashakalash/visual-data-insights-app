@@ -1,0 +1,27 @@
+<mat-form-field class="example-form-field">
+  <mat-label>Enter the name</mat-label>
+  <input matInput
+         type="text"
+         [value]="value()">
+  @if (value()) {
+  <button matSuffix
+          mat-icon-button
+          aria-label="Clear"
+          (click)="resetValue()">
+    <mat-icon>close</mat-icon>
+  </button>
+  }
+</mat-form-field>
+
+<div class="buttons-wrapper">
+  <button mat-raised-button
+          (click)="createPlot()">
+    Create plot
+    <mat-icon>add_circle</mat-icon>
+  </button>
+  <button mat-flat-button
+          (click)="editPlot()">
+    Edit plot
+    <mat-icon>edit</mat-icon>
+  </button>
+</div>
