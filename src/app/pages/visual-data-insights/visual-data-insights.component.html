@@ -1,0 +1,15 @@
+<h1>{{title()}}</h1>
+<app-toolbar />
+
+<gridster [options]="options"
+          #gridster>
+  @for (plot of store.plots(); track plot.plot_id; let idx = $index) {
+  <gridster-item [item]="dashboard[idx]">
+    <button mat-flat-button
+            (click)="store.deletePlot(plot)">
+      <mat-icon>delete</mat-icon>
+    </button>
+    <app-plot [graph]="plot.plot" />
+  </gridster-item>
+  }
+</gridster>
