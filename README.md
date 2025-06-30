@@ -1,4 +1,52 @@
-# VisualDataInsightsApp
+# Dynamic Plot Dashboard (MVP)
+
+## Overview
+
+This is a minimal viable product (MVP) built in just 4 hours.  
+Its primary goal is to dynamically display interactive plots using Plotly inside a Gridster layout.
+
+This MVP lays the groundwork for a future, fully-featured data visualization platform.
+
+---
+
+## Features
+
+- **Authentication**: Basic Auth service implemented
+- **Charts**: Plotly integrated; mocked plots added
+- **Grid Layout**: Uses Gridster for dynamic widget placement
+- **State Management**: Store implemented for application state
+- **UI Components**: Angular Material library integrated
+- **Dynamic Components**: Infrastructure ready for dynamic loading of plot widgets
+
+---
+
+## Tech Stack
+
+- Angular
+- Plotly.js
+- Angular Gridster
+- Angular Material
+- RxJS & State Management NgRx
+- TypeScript
+
+---
+
+## Future Plans
+
+- Connect real data sources
+- Configurable widgets
+- Enhanced auth and access control
+- Save/load layout state
+- Import/export dashboard configurations
+
+---
+
+## Getting Started
+
+```bash
+npm install
+ng serve
+```
 
 ## Development server
 
